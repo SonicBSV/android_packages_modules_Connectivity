@@ -1626,9 +1626,12 @@ static int doLoad(char** argv, char * const envp[]) {
 
     // 25Q2 bumps the kernel requirement up to 5.4
     // see also: //system/netd/tests/kernel_test.cpp TestKernel54
-    if (isAtLeast25Q2 && !isAtLeastKernelVersion(5, 4)) {
-        ALOGE("Android 25Q2 requires kernel 5.4.");
+    if (isAtLeast25Q2 && !isAtLeastKernelVersion(4, 19)) {
+        ALOGE("Android 25Q2 requires kernel 4.19 (patched).");
         return 6;
+    }
+    if (isAtLeast25Q2 && !isAtLeastKernelVersion(5, 4)) {
+        ALOGW("Running on kernel < 5.4, some BPF features limited.");
     }
 
     // 25Q4 bumps the kernel requirement up to 5.10
